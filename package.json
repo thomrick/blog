@@ -1,0 +1,11 @@
+{
+  "name": "@thomrick/migrations",
+  "version": "0.0.0",
+  "description": "Migrations regarding architecture patterns",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ThomRick",
+  "license": "MIT"
+}
