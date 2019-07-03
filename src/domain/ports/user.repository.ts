@@ -1,6 +1,6 @@
-import { User } from '../user';
+import { UserAggregate } from '../aggregates';
 
 export interface UserRepository {
-  save(user: User): void;
-  get(id: string): User | null;
+  save(user: UserAggregate): void;
+  get(id: string): UserAggregate | null;
 }
