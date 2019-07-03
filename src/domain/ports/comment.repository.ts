@@ -1,6 +1,6 @@
-import { PostAggregate } from '../aggregates';
+import { CommentAggregate } from '../aggregates';
 
 export interface CommentRepository {
-  save(comment: PostAggregate): void;
-  get(id: string): PostAggregate;
+  save(comment: CommentAggregate): void;
+  get(id: string): CommentAggregate | null;
 }
