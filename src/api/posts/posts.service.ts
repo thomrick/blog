@@ -1,17 +1,29 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { PostAggregate, PostRepository } from '../../domain';
+import { PostAggregate, PostRepository, UserAggregate, UserRepository } from '../../domain';
+import { USER_REPOSITORY_TOKEN } from '../users';
 import { CreatePostDto } from './dto';
 import { POST_REPOSITORY_TOKEN } from './posts.repository';
 
 @Injectable()
 export class PostsService {
-  private readonly repository: PostRepository;
+  private readonly posts: PostRepository;
+  private readonly users: UserRepository;
 
-  constructor(@Inject(POST_REPOSITORY_TOKEN) repository: PostRepository) {
-    this.repository = repository;
+  constructor(
+    @Inject(POST_REPOSITORY_TOKEN) posts: PostRepository,
+    @Inject(USER_REPOSITORY_TOKEN) users: UserRepository,
+  ) {
+    this.posts = posts;
+    this.users = users;
   }
 
   public create(dto: CreatePostDto): PostAggregate {
-    throw new Error('Method not implemented');
+    const author: UserAggregate | null = this.users.get(dto.author);
+    if (author === null) {
+      throw new Error('Author not found');
+    }
+    const post: PostAggregate = PostAggregate.with(author, dto.title, dto.content);
+    this.posts.save(post);
+    return post;
   }
 }
