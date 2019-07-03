@@ -6,7 +6,8 @@
     "jsRules": {},
     "rules": {
         "quotemark": [true, "single"],
-        "member-ordering": false
+        "member-ordering": false,
+        "interface-name": false
     },
     "rulesDirectory": []
 }
