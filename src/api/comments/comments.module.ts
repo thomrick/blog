@@ -11,5 +11,8 @@ import { CommentsService } from './comments.service';
     CommentsService,
     CommentsRepository,
   ],
+  exports: [
+    CommentsRepository,
+  ],
 })
 export class CommentsModule {}

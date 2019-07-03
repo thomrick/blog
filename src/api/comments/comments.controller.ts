@@ -1,5 +1,7 @@
-import { Controller } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
+import { CommentAggregate } from '../../domain';
 import { CommentsService } from './comments.service';
+import { CreateCommentDto } from './dto';
 
 @Controller('comments')
 export class CommentsController {
@@ -7,5 +9,10 @@ export class CommentsController {
 
   constructor(service: CommentsService) {
     this.service = service;
+  }
+
+  @Post()
+  public create(@Body() dto: CreateCommentDto): CommentAggregate {
+    return this.service.create(dto);
   }
 }

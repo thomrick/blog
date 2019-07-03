@@ -11,5 +11,8 @@ import { PostsService } from './posts.service';
     PostsService,
     PostsRepository,
   ],
+  exports: [
+    PostsRepository,
+  ],
 })
 export class PostsModule {}
