@@ -1,22 +1,21 @@
 import uuid from 'uuid/v1';
-import { UserAggregate } from './user.aggregate';
 
 export class PostAggregate {
 
   private id: string;
+  private author: string;
   private title: string;
   private content: string;
-  private author: UserAggregate;
 
-  public static with(author: UserAggregate, title: string, content: string): PostAggregate {
+  public static with(author: string, title: string, content: string): PostAggregate {
     return new PostAggregate(uuid(), author, title, content);
   }
 
-  private constructor(id: string, author: UserAggregate, title: string, content: string) {
+  private constructor(id: string, author: string, title: string, content: string) {
     this.id = id;
+    this.author = author;
     this.title = title;
     this.content = content;
-    this.author = author;
   }
 
   public getId(): string {
@@ -31,7 +30,7 @@ export class PostAggregate {
     return this.content;
   }
 
-  public getAuthor(): UserAggregate {
+  public getAuthor(): string {
     return this.author;
   }
 }
