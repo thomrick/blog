@@ -11,8 +11,5 @@ import { UsersService } from './users.service';
     UsersService,
     UsersRepository,
   ],
-  exports: [
-    UsersRepository,
-  ],
 })
 export class UsersModule {}
