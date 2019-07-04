@@ -1,18 +1,15 @@
-import { PostAggregate, UserAggregate } from './aggregates';
-import { PostRepository, UserRepository } from './ports';
+import { PostAggregate } from './aggregates';
+import { PostRepository } from './ports';
 
 export class CreatePostHandler {
-  private readonly users: UserRepository;
   private readonly posts: PostRepository;
 
-  constructor(users: UserRepository, posts: PostRepository) {
-    this.users = users;
+  constructor(posts: PostRepository) {
     this.posts = posts;
   }
 
   public handle(author: string, title: string, content: string): PostAggregate {
-    const user: UserAggregate = this.users.get(author) as UserAggregate;
-    const post: PostAggregate = PostAggregate.with(user, title, content);
+    const post: PostAggregate = PostAggregate.with(author, title, content);
     this.posts.save(post);
     return post;
   }

@@ -1,21 +1,18 @@
-import { PostAggregate, UserAggregate } from './aggregates';
+import uuid from 'uuid/v1';
+import { PostAggregate } from './aggregates';
 import { CreatePostHandler } from './create-post.handler';
-import { PostRepository, UserRepository } from './ports';
+import { PostRepository } from './ports';
 
 describe('CreatePostHandler', () => {
   it('should save the created post', () => {
-    const user: UserAggregate = UserAggregate.with('username');
-    const users: UserRepository = {
-      save: jest.fn(),
-      get: jest.fn().mockReturnValue(user),
-    };
+    const author: string = uuid();
     const posts: PostRepository = {
       save: jest.fn(),
       get: jest.fn(),
     };
-    const handler: CreatePostHandler = new CreatePostHandler(users, posts);
+    const handler: CreatePostHandler = new CreatePostHandler(posts);
 
-    const post: PostAggregate = handler.handle(user.getId(), 'title', 'content');
+    const post: PostAggregate = handler.handle(author, 'title', 'content');
 
     expect(posts.save).toHaveBeenCalledWith(post);
   });
