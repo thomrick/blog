@@ -9,7 +9,7 @@ describe('CreateUserCommandHandler', () => {
       save: jest.fn(),
       get: jest.fn(),
     };
-    const handler: CommandHandler<CreateUser> = new CreateUserCommandHandler(repository);
+    const handler: CommandHandler = new CreateUserCommandHandler(repository);
 
     handler.handle(new CreateUser('username'));
 

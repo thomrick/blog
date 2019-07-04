@@ -10,7 +10,7 @@ describe('CreatePostCommandHandler', () => {
       save: jest.fn(),
       get: jest.fn(),
     };
-    const handler: CommandHandler<CreatePost> = new CreatePostCommandHandler(repository);
+    const handler: CommandHandler = new CreatePostCommandHandler(repository);
 
     handler.handle(new CreatePost(uuid(), 'title', 'content'));
 

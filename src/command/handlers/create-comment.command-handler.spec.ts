@@ -10,7 +10,7 @@ describe('CreateCommentCommandHandler', () => {
       save: jest.fn(),
       get: jest.fn(),
     };
-    const handler: CommandHandler<CreateComment> = new CreateCommentCommandHandler(repository);
+    const handler: CommandHandler = new CreateCommentCommandHandler(repository);
 
     handler.handle(new CreateComment(uuid(), uuid(), 'text'));
 

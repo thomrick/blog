@@ -1,4 +1,8 @@
-export class CreateComment {
+import { Command } from './command';
+
+export class CreateComment implements Command {
+  public readonly name: string = CreateComment.name;
+
   public readonly author: string;
   public readonly post: string;
   public readonly text: string;

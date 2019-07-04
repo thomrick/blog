@@ -2,7 +2,7 @@ import { UserAggregate, UserRepository } from '../../domain';
 import { CreateUser } from '../create-user.command';
 import { CommandHandler } from './command-handler';
 
-export class CreateUserCommandHandler implements CommandHandler<CreateUser> {
+export class CreateUserCommandHandler implements CommandHandler {
   private readonly repository: UserRepository;
 
   constructor(repository: UserRepository) {
@@ -12,5 +12,9 @@ export class CreateUserCommandHandler implements CommandHandler<CreateUser> {
   public handle(command: CreateUser): void {
     const user: UserAggregate = UserAggregate.with(command.username);
     this.repository.save(user);
+  }
+
+  public subscribeTo(): string {
+    return CreateUser.name;
   }
 }
