@@ -8,7 +8,7 @@ export class CreateUserHandler {
     this.repository = repository;
   }
 
-  public create(username: string): UserAggregate {
+  public handle(username: string): UserAggregate {
     const user: UserAggregate = UserAggregate.with(username);
     this.repository.save(user);
     return user;

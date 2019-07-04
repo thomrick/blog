@@ -15,7 +15,7 @@ describe('CreateUserHandler', () => {
   });
 
   it('should save the user', () => {
-    const user: UserAggregate = handler.create('username');
+    const user: UserAggregate = handler.handle('username');
 
     expect(repository.save).toHaveBeenCalledWith(user);
   });
