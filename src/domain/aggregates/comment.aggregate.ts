@@ -1,17 +1,19 @@
 import uuid from 'uuid/v1';
+import { PostAggregate } from './post.aggregate';
+import { UserAggregate } from './user.aggregate';
 
 export class CommentAggregate {
 
   private id: string;
-  private author: string;
-  private post: string;
+  private author: UserAggregate;
+  private post: PostAggregate;
   private text: string;
 
-  public static with(author: string, post: string, text: string): CommentAggregate {
+  public static with(author: UserAggregate, post: PostAggregate, text: string): CommentAggregate {
     return new CommentAggregate(uuid(), author, post, text);
   }
 
-  private constructor(id: string, author: string, post: string, text: string) {
+  private constructor(id: string, author: UserAggregate, post: PostAggregate, text: string) {
     this.id = id;
     this.author = author;
     this.post = post;
@@ -22,11 +24,11 @@ export class CommentAggregate {
     return this.id;
   }
 
-  public getAuthor(): string {
+  public getAuthor(): UserAggregate {
     return this.author;
   }
 
-  public getPost(): string {
+  public getPost(): PostAggregate {
     return this.post;
   }
 

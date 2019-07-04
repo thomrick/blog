@@ -1,10 +1,11 @@
-import uuid from 'uuid/v1';
 import { CommentAggregate } from './comment.aggregate';
+import { PostAggregate } from './post.aggregate';
+import { UserAggregate } from './user.aggregate';
 
 describe('CommentAggregate', () => {
   it('should create a new comment', () => {
-    const author: string = uuid();
-    const post: string = uuid();
+    const author: UserAggregate = UserAggregate.with('username');
+    const post: PostAggregate = PostAggregate.with(author, 'title', 'content');
     const text: string = 'text';
 
     const comment: CommentAggregate = CommentAggregate.with(author, post, text);

@@ -1,9 +1,9 @@
-import uuid from 'uuid/v1';
 import { PostAggregate } from './post.aggregate';
+import { UserAggregate } from './user.aggregate';
 
 describe('PostAggregate', () => {
   it('should create a blog post', () => {
-    const author: string = uuid();
+    const author: UserAggregate = UserAggregate.with('username');
     const title: string = 'title';
     const content: string = 'content';
 
