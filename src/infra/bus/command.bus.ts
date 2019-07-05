@@ -12,5 +12,6 @@ export class CommandBus {
     if (!!handler) {
       return handler.handle(command);
     }
+    throw new Error(`Command ${command.name} is not supported`);
   }
 }
