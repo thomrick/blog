@@ -1,6 +1,6 @@
 import { UserAggregate, UserRepository } from '../../domain';
-import { GetUserById } from '../get-user-by-id.query';
-import { GetUserByIdResult } from './get-user-by-id.result';
+import { GetUserByIdQuery } from '../queries';
+import { GetUserByIdResult } from '../results';
 import { QueryHandler } from './query-handler';
 
 export class GetUserByIdQueryHandler implements QueryHandler {
@@ -10,7 +10,7 @@ export class GetUserByIdQueryHandler implements QueryHandler {
     this.repository = repository;
   }
 
-  public handle(query: GetUserById): GetUserByIdResult {
+  public handle(query: GetUserByIdQuery): GetUserByIdResult {
     const user: UserAggregate | null = this.repository.get(query.id);
     return new GetUserByIdResult(user);
   }

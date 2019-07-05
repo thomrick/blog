@@ -1,5 +1,5 @@
-import { Query } from '../query';
-import { Result } from '../result';
+import { Query } from '../queries';
+import { Result } from '../results';
 
 export interface QueryHandler {
   handle(query: Query): Result;

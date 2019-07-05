@@ -1,7 +1,7 @@
 import { Query } from './query';
 
-export class GetUserById implements Query {
-  public readonly name: string = GetUserById.name;
+export class GetUserByIdQuery implements Query {
+  public readonly name: string = GetUserByIdQuery.name;
   public readonly id: string;
 
   constructor(id: string) {
