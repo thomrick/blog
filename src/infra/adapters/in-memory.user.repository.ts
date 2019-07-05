@@ -17,4 +17,8 @@ export class InMemoryUserRepository implements UserRepository {
     return !!aggregate ? aggregate : null;
   }
 
+  public findByUsername(username: string): UserAggregate | null {
+    throw new Error('Method not implemented');
+  }
+
 }
