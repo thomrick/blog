@@ -1,4 +1,4 @@
-import { PostAggregate, PostRepository } from '../../domain';
+import { PostAggregate, PostRepository } from '../../../../domain';
 
 export class InMemoryPostRepository implements PostRepository {
 

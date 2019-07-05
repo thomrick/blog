@@ -1,9 +1,11 @@
-import { Command, CommandHandler } from '../../command';
+import { Inject, Injectable } from '@nestjs/common';
+import { Command, COMMAND_HANDLERS_TOKEN, CommandHandler } from '../../command';
 
+@Injectable()
 export class CommandBus {
   private readonly handlers: Map<string, CommandHandler>;
 
-  constructor(handlers: CommandHandler[]) {
+  constructor(@Inject(COMMAND_HANDLERS_TOKEN) handlers: CommandHandler[]) {
     this.handlers = handlers.reduce((acc, handler) => acc.set(handler.subscribeTo(), handler), new Map());
   }
 

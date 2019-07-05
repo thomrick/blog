@@ -1,4 +1,4 @@
-import { CommentAggregate, CommentRepository } from '../../domain';
+import { CommentAggregate, CommentRepository } from '../../../../domain';
 
 export class InMemoryCommentRepository implements CommentRepository {
 
