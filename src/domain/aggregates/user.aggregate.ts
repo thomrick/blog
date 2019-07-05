@@ -1,5 +1,9 @@
 import uuid from 'uuid/v1';
 import { UserCreated, UserEvent } from '../events';
+interface ConstructorParams {
+  id: string;
+  username: string;
+}
 
 export class UserAggregate {
 
@@ -9,12 +13,12 @@ export class UserAggregate {
   private changes: UserEvent[] = [];
 
   public static with(username: string): UserAggregate {
-    return new UserAggregate(uuid(), username);
+    return new UserAggregate({ id: uuid(), username });
   }
 
-  private constructor(id?: string, username?: string) {
-    if (!!id && !!username) {
-      const event: UserCreated = new UserCreated(id, username);
+  private constructor(params?: ConstructorParams) {
+    if (!!params) {
+      const event: UserCreated = new UserCreated(params.id, params.username);
       this.apply(event);
       this.save(event);
     }
