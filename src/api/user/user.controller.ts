@@ -1,13 +1,13 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { UserAggregate } from '../../domain';
 import { CreateUserDto } from './dto';
-import { UsersService } from './users.service';
+import { UserService } from './user.service';
 
 @Controller('users')
-export class UsersController {
-  private readonly service: UsersService;
+export class UserController {
+  private readonly service: UserService;
 
-  constructor(service: UsersService) {
+  constructor(service: UserService) {
     this.service = service;
   }
 

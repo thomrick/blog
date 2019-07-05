@@ -7,7 +7,7 @@ export class CommandBus {
     this.handlers = handlers.reduce((acc, handler) => acc.set(handler.subscribeTo(), handler), new Map());
   }
 
-  public handle(command: Command): void {
+  public dispatch(command: Command): void {
     const handler: CommandHandler | undefined = this.handlers.get(command.name);
     if (!!handler) {
       return handler.handle(command);

@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { CommentsModule } from './comments';
 import { PostsModule } from './posts';
-import { UsersModule } from './users';
+import { UserModule } from './user';
 
 @Module({
   imports: [
     CommentsModule,
     PostsModule,
-    UsersModule,
+    UserModule,
   ],
 })
 export class ApiModule {}
