@@ -39,7 +39,7 @@ describe('UserService', () => {
 
   describe('findOne', () => {
     it('should get user by username', () => {
-      const user = UserAggregate.with('username');
+      const user = UserAggregate.with('email', 'password', 'username');
       const askSpy = jest.spyOn(queryBusMock, 'ask');
       askSpy.mockImplementationOnce(() => new GetUserByUsernameResult(user));
 
