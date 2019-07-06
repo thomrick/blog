@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/main.js",
+    "start": "node target/main.js",
     "start:dev": "ts-node src/main.ts",
     "start:dev:watch": "nodemon -w src -e ts --exec 'npm run -s start:dev'",
     "test": "jest --config jest.config.json",
