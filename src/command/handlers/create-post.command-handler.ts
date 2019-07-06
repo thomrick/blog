@@ -1,5 +1,5 @@
 import { PostAggregate,  PostRepository } from '../../domain';
-import { CreatePost } from '../create-post.command';
+import { CreatePost } from '../commands';
 import { CommandHandler } from './command-handler';
 
 export class CreatePostCommandHandler implements CommandHandler {

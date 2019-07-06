@@ -1,5 +1,5 @@
 import { CommentAggregate, CommentRepository } from '../../domain';
-import { CreateComment } from '../create-comment.command';
+import { CreateComment } from '../commands';
 import { CommandHandler } from './command-handler';
 
 export class CreateCommentCommandHandler implements CommandHandler {

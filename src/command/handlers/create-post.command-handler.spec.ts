@@ -1,6 +1,6 @@
 import uuid from 'uuid/v1';
 import { PostRepository } from '../../domain';
-import { CreatePost } from '../create-post.command';
+import { CreatePost } from '../commands';
 import { CommandHandler } from './command-handler';
 import { CreatePostCommandHandler } from './create-post.command-handler';
 

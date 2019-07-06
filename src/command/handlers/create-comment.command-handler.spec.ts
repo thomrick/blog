@@ -1,6 +1,6 @@
 import uuid from 'uuid/v1';
 import { CommentRepository } from '../../domain';
-import { CreateComment } from '../create-comment.command';
+import { CreateComment } from '../commands';
 import { CommandHandler } from './command-handler';
 import { CreateCommentCommandHandler } from './create-comment.command-handler';
 

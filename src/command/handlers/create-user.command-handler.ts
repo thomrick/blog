@@ -1,5 +1,5 @@
 import { UserAggregate, UserRepository } from '../../domain';
-import { CreateUser } from '../create-user.command';
+import { CreateUser } from '../commands';
 import { CommandHandler } from './command-handler';
 
 export class CreateUserCommandHandler implements CommandHandler {
