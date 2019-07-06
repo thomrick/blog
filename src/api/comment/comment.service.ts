@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateComment } from '../../command';
+import { CreateCommentCommand } from '../../command';
 import { CommentAggregate } from '../../domain';
 import { CommandBus } from '../../infra/bus';
 import { CreateCommentDto } from './dto';
@@ -13,7 +13,7 @@ export class CommentService {
   }
 
   public create(dto: CreateCommentDto): CommentAggregate {
-    this.bus.dispatch(new CreateComment(dto.author, dto.post, dto.text));
+    this.bus.dispatch(new CreateCommentCommand(dto.author, dto.post, dto.text));
     throw new Error('Method not implemented');
   }
 }

@@ -1,5 +1,5 @@
 import { CommentAggregate, CommentRepository } from '../../domain';
-import { CreateComment } from '../commands';
+import { CreateCommentCommand } from '../commands';
 import { CommandHandler } from './command-handler';
 
 export class CreateCommentCommandHandler implements CommandHandler {
@@ -9,12 +9,12 @@ export class CreateCommentCommandHandler implements CommandHandler {
     this.repository = repository;
   }
 
-  public handle(command: CreateComment): void {
+  public handle(command: CreateCommentCommand): void {
     const comment: CommentAggregate = CommentAggregate.with(command.author, command.post, command.text);
     this.repository.save(comment);
   }
 
   public subscribeTo(): string {
-    return CreateComment.name;
+    return CreateCommentCommand.name;
   }
 }

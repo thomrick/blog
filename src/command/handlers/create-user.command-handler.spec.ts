@@ -1,5 +1,5 @@
 import { UserRepository } from '../../domain';
-import { CreateUser } from '../commands';
+import { CreateUserCommand } from '../commands';
 import { CommandHandler } from './command-handler';
 import { CreateUserCommandHandler } from './create-user.command-handler';
 
@@ -12,7 +12,7 @@ describe('CreateUserCommandHandler', () => {
     };
     const handler: CommandHandler = new CreateUserCommandHandler(repository);
 
-    handler.handle(new CreateUser('username'));
+    handler.handle(new CreateUserCommand('username'));
 
     expect(repository.save).toHaveBeenCalled();
   });

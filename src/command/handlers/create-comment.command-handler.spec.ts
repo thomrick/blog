@@ -1,6 +1,6 @@
 import uuid from 'uuid/v1';
 import { CommentRepository } from '../../domain';
-import { CreateComment } from '../commands';
+import { CreateCommentCommand } from '../commands';
 import { CommandHandler } from './command-handler';
 import { CreateCommentCommandHandler } from './create-comment.command-handler';
 
@@ -12,7 +12,7 @@ describe('CreateCommentCommandHandler', () => {
     };
     const handler: CommandHandler = new CreateCommentCommandHandler(repository);
 
-    handler.handle(new CreateComment(uuid(), uuid(), 'text'));
+    handler.handle(new CreateCommentCommand(uuid(), uuid(), 'text'));
 
     expect(repository.save).toHaveBeenCalled();
   });

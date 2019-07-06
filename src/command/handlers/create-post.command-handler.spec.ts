@@ -1,6 +1,6 @@
 import uuid from 'uuid/v1';
 import { PostRepository } from '../../domain';
-import { CreatePost } from '../commands';
+import { CreatePostCommand } from '../commands';
 import { CommandHandler } from './command-handler';
 import { CreatePostCommandHandler } from './create-post.command-handler';
 
@@ -12,7 +12,7 @@ describe('CreatePostCommandHandler', () => {
     };
     const handler: CommandHandler = new CreatePostCommandHandler(repository);
 
-    handler.handle(new CreatePost(uuid(), 'title', 'content'));
+    handler.handle(new CreatePostCommand(uuid(), 'title', 'content'));
 
     expect(repository.save).toHaveBeenCalled();
   });

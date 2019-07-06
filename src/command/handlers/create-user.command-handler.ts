@@ -1,5 +1,5 @@
 import { UserAggregate, UserRepository } from '../../domain';
-import { CreateUser } from '../commands';
+import { CreateUserCommand } from '../commands';
 import { CommandHandler } from './command-handler';
 
 export class CreateUserCommandHandler implements CommandHandler {
@@ -9,12 +9,12 @@ export class CreateUserCommandHandler implements CommandHandler {
     this.repository = repository;
   }
 
-  public handle(command: CreateUser): void {
+  public handle(command: CreateUserCommand): void {
     const user: UserAggregate = UserAggregate.with(command.username);
     this.repository.save(user);
   }
 
   public subscribeTo(): string {
-    return CreateUser.name;
+    return CreateUserCommand.name;
   }
 }

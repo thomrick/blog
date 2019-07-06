@@ -1,7 +1,7 @@
 import { Command } from './command';
 
-export class CreateUser implements Command {
-  public readonly name: string = CreateUser.name;
+export class CreateUserCommand implements Command {
+  public readonly name: string = CreateUserCommand.name;
 
   public readonly username: string;
 

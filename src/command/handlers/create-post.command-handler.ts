@@ -1,5 +1,5 @@
 import { PostAggregate,  PostRepository } from '../../domain';
-import { CreatePost } from '../commands';
+import { CreatePostCommand } from '../commands';
 import { CommandHandler } from './command-handler';
 
 export class CreatePostCommandHandler implements CommandHandler {
@@ -9,12 +9,12 @@ export class CreatePostCommandHandler implements CommandHandler {
     this.repository = repository;
   }
 
-  public handle(command: CreatePost): void {
+  public handle(command: CreatePostCommand): void {
     const post: PostAggregate = PostAggregate.with(command.author, command.title, command.content);
     this.repository.save(post);
   }
 
   public subscribeTo(): string {
-    return CreatePost.name;
+    return CreatePostCommand.name;
   }
 }

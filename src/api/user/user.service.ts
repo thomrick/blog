@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUser } from '../../command';
+import { CreateUserCommand } from '../../command';
 import { UserAggregate } from '../../domain';
 import { CommandBus, QueryBus } from '../../infra/bus';
 import { GetUserByUsernameQuery, GetUserByUsernameResult } from '../../query';
@@ -16,7 +16,7 @@ export class UserService {
   }
 
   public create(dto: CreateUserDto): UserAggregate {
-    this.orderer.dispatch(new CreateUser(dto.username));
+    this.orderer.dispatch(new CreateUserCommand(dto.username));
     const result: GetUserByUsernameResult = this.querier.ask(new GetUserByUsernameQuery(dto.username));
     const user: UserAggregate | null = result.getData();
     if (user === null) {
