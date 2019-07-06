@@ -1,5 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { BusModule, CommandBus, QueryBus } from '../../infra';
+import { UserAggregate } from '../../domain';
+import { BusModule, COMMAND_BUS_TOKEN, CommandBus, QUERY_BUS_TOKEN, QueryBus } from '../../infra';
+import { GetUserByUsernameQuery, GetUserByUsernameResult } from '../../query';
+import { UserDto } from './dto';
 import { UserService } from './user.service';
 
 describe('UserService', () => {
@@ -21,8 +24,8 @@ describe('UserService', () => {
         UserService,
       ],
     })
-    .overrideProvider(CommandBus).useValue(commandBusMock)
-    .overrideProvider(QueryBus).useValue(queryBusMock)
+    .overrideProvider(COMMAND_BUS_TOKEN).useValue(commandBusMock)
+    .overrideProvider(QUERY_BUS_TOKEN).useValue(queryBusMock)
     .compile();
 
     service = module.get(UserService);
@@ -35,8 +38,15 @@ describe('UserService', () => {
   });
 
   describe('findOne', () => {
-    it('should pass', () => {
-      expect(true).toBeTruthy();
+    it('should get user by username', () => {
+      const user = UserAggregate.with('username');
+      const askSpy = jest.spyOn(queryBusMock, 'ask');
+      askSpy.mockImplementationOnce(() => new GetUserByUsernameResult(user));
+
+      const dto: UserDto = service.findOne(user.getUsername());
+
+      expect(askSpy).toHaveBeenCalledWith(new GetUserByUsernameQuery(user.getUsername()));
+      expect(dto.username).toEqual(user.getUsername());
     });
   });
 });

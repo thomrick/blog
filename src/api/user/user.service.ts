@@ -24,4 +24,9 @@ export class UserService {
     }
     return UserDto.from(user);
   }
+
+  public findOne(username: string): UserDto {
+    const result: GetUserByUsernameResult = this.queryBus.ask(new GetUserByUsernameQuery(username));
+    return UserDto.from(result.getData() as UserAggregate);
+  }
 }
