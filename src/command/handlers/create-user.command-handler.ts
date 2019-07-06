@@ -17,11 +17,11 @@ export class CreateUserCommandHandler implements CommandHandler {
   }
 
   private isUserExist(command: CreateUserCommand): boolean {
-    return !!this.repository.findByUsername(command.username);
+    return !!this.repository.findByEmail(command.email);
   }
 
   private createAndSaveUserFrom(command: CreateUserCommand): void {
-    const user: UserAggregate = UserAggregate.with(command.username);
+    const user: UserAggregate = UserAggregate.with(command.email, command.password, command.username);
     return this.repository.save(user);
   }
 

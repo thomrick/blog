@@ -9,6 +9,7 @@ export class InMemoryUserRepository implements UserRepository {
   constructor(database: Map<string, UserEvent[]> = new Map<string, UserEvent[]>()) {
     this.database = database;
     this.indexes.set('username', new Map());
+    this.indexes.set('email', new Map());
   }
 
   public save(user: UserAggregate): void {
@@ -23,6 +24,7 @@ export class InMemoryUserRepository implements UserRepository {
     if (!this.database.has(user.getId())) {
       this.createDatabaseEntryFor(user);
       this.createUsernameIndexFor(user);
+      this.createEmailIndexFor(user);
     }
   }
 
@@ -36,6 +38,12 @@ export class InMemoryUserRepository implements UserRepository {
     this.indexes.set('username', index);
   }
 
+  private createEmailIndexFor(user: UserAggregate): void {
+    const index: Map<string, string> = this.indexes.get('email') as Map<string, string>;
+    index.set(user.getEmail(), user.getId());
+    this.indexes.set('email', index);
+  }
+
   public get(id: string): UserAggregate | null {
     const events: UserEvent[] | undefined = this.database.get(id);
     return !!events ? UserAggregate.rebuild(events) : null;
@@ -44,6 +52,12 @@ export class InMemoryUserRepository implements UserRepository {
   public findByUsername(username: string): UserAggregate | null {
     const index: Map<string, string> = this.indexes.get('username') as Map<string, string>;
     const userId: string | undefined = index.get(username);
+    return !!userId ? this.get(userId) : null;
+  }
+
+  public findByEmail(email: string): UserAggregate | null {
+    const index: Map<string, string> = this.indexes.get('email') as Map<string, string>;
+    const userId: string | undefined = index.get(email);
     return !!userId ? this.get(userId) : null;
   }
 }

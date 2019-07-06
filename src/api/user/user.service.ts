@@ -16,7 +16,7 @@ export class UserService {
   }
 
   public create(dto: CreateUserDto): UserDto {
-    this.commandBus.dispatch(new CreateUserCommand(dto.username));
+    this.commandBus.dispatch(new CreateUserCommand(dto.email, dto.password, dto.username));
     const result: GetUserByUsernameResult = this.queryBus.ask(new GetUserByUsernameQuery(dto.username));
     const user: UserAggregate | null = result.getData();
     if (user === null) {
