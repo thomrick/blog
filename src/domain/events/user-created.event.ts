@@ -2,11 +2,15 @@ import { UserAggregate } from '../aggregates';
 import { UserEvent } from './user.event';
 
 export class UserCreated implements UserEvent {
-  public readonly id: string;
+  public readonly userId: string;
+  public readonly email: string;
+  public readonly password: string;
   public readonly username: string;
 
-  constructor(id: string, username: string) {
-    this.id = id;
+  constructor(userId: string, email: string, password: string, username: string) {
+    this.userId = userId;
+    this.email = email;
+    this.password = password;
     this.username = username;
   }
 
