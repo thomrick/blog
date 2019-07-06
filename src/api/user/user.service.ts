@@ -1,14 +1,14 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateUser } from '../../command';
 import { UserAggregate } from '../../domain';
-import { COMMAND_BUS_TOKEN, CommandBus } from '../../infra';
+import { CommandBus } from '../../infra/bus';
 import { CreateUserDto } from './dto';
 
 @Injectable()
 export class UserService {
   private readonly commands: CommandBus;
 
-  constructor(@Inject(COMMAND_BUS_TOKEN) commands: CommandBus) {
+  constructor(commands: CommandBus) {
     this.commands = commands;
   }
 
