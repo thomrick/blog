@@ -16,4 +16,8 @@ export class InMemoryPostRepository implements PostRepository {
     const aggregate: PostAggregate | undefined = this.database.get(id);
     return !!aggregate ? aggregate : null;
   }
+
+  public getAll(): PostAggregate[] {
+    return [];
+  }
 }

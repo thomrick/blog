@@ -3,7 +3,7 @@ import { PostAggregate } from '../../domain';
 import { CreatePostDto } from './dto';
 import { PostService } from './post.service';
 
-@Controller('posts')
+@Controller()
 export class PostController {
   private readonly service: PostService;
 
@@ -11,7 +11,7 @@ export class PostController {
     this.service = service;
   }
 
-  @Post()
+  @Post('post')
   public create(@Body() dto: CreatePostDto): PostAggregate {
     return this.service.create(dto);
   }
