@@ -3,6 +3,10 @@
   "version": "0.0.0",
   "description": "A blog project to implement architecture pattern migrations",
   "main": "index.js",
+  "engines": {
+    "node": "10.16.0",
+    "npm": "6.9.0"
+  },
   "scripts": {
     "build": "tsc",
     "start": "node target/main.js",
