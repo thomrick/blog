@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
-import { CreateUserDto, UserDto } from './dto';
+import { CreateUserDto, FindOneQueryDto, UserDto } from './dto';
 import { UserService } from './user.service';
 
 @Controller()
@@ -16,7 +16,7 @@ export class UserController {
   }
 
   @Get('user')
-  public findOne(@Query('username') username?: string): UserDto {
-    throw new Error('Method not implemented');
+  public findOne(@Query() dto: FindOneQueryDto): UserDto {
+    return this.service.findOne(dto);
   }
 }
