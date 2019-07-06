@@ -4,12 +4,17 @@ import { GetUserByIdResult } from '../results';
 import { GetUserByIdQueryHandler } from './get-user-by-id.query-handler';
 
 describe('GetUserByIdQueryHandler', () => {
+  const email: string = 'email';
+  const password: string = 'password';
+  const username: string = 'username';
+
   it('should get user by id from repository', () => {
-    const user: UserAggregate = UserAggregate.with('username');
+    const user: UserAggregate = UserAggregate.with(email, password, username);
     const repository: UserRepository = {
       save: jest.fn(),
       get: jest.fn().mockReturnValue(user),
       findByUsername: jest.fn(),
+      findByEmail: jest.fn(),
     };
     const handler = new GetUserByIdQueryHandler(repository);
 
