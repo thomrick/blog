@@ -1,8 +1,7 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { Query, QUERY_HANDLERS_TOKEN, QueryHandler, Result } from '../../query';
+import { Inject } from '@nestjs/common';
+import { Query, QUERY_HANDLERS_TOKEN, QueryHandler, Result } from '../../../query';
 
-@Injectable()
-export class QueryBus {
+export class InMemoryQueryBus {
   private readonly handlers: Map<string, QueryHandler>;
 
   constructor(@Inject(QUERY_HANDLERS_TOKEN) handlers: QueryHandler[]) {
