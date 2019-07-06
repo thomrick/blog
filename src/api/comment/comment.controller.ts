@@ -1,13 +1,13 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { CommentAggregate } from '../../domain';
-import { CommentsService } from './comments.service';
+import { CommentService } from './comment.service';
 import { CreateCommentDto } from './dto';
 
 @Controller('comments')
-export class CommentsController {
-  private readonly service: CommentsService;
+export class CommentController {
+  private readonly service: CommentService;
 
-  constructor(service: CommentsService) {
+  constructor(service: CommentService) {
     this.service = service;
   }
 

@@ -1,13 +1,13 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { PostAggregate } from '../../domain';
 import { CreatePostDto } from './dto';
-import { PostsService } from './posts.service';
+import { PostService } from './post.service';
 
 @Controller('posts')
-export class PostsController {
-  private readonly service: PostsService;
+export class PostController {
+  private readonly service: PostService;
 
-  constructor(service: PostsService) {
+  constructor(service: PostService) {
     this.service = service;
   }
 

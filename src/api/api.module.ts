@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
-import { CommentsModule } from './comments';
-import { PostsModule } from './posts';
+import { CommentModule } from './comment';
+import { PostModule } from './post';
 import { UserModule } from './user';
 
 @Module({
   imports: [
-    CommentsModule,
-    PostsModule,
+    CommentModule,
+    PostModule,
     UserModule,
   ],
 })

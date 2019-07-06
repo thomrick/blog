@@ -4,7 +4,7 @@ import { CommandBus } from '../../infra/bus';
 import { CreatePostDto } from './dto';
 
 @Injectable()
-export class PostsService {
+export class PostService {
   private readonly bus: CommandBus;
 
   constructor(bus: CommandBus) {
