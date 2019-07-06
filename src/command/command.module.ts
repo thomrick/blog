@@ -1,6 +1,6 @@
 import { forwardRef, Module } from '@nestjs/common';
 import { RepositoriesModule } from '../infra/adapters/repositories';
-import { CommandHandlers, UserCommandHandlersProvider } from './providers';
+import { CommandHandlers, CommentCommandHandlers, PostCommandHandlers, UserCommandHandlersProvider } from './providers';
 
 @Module({
   imports: [
@@ -8,6 +8,8 @@ import { CommandHandlers, UserCommandHandlersProvider } from './providers';
   ],
   providers: [
     CommandHandlers,
+    CommentCommandHandlers,
+    PostCommandHandlers,
     UserCommandHandlersProvider,
   ],
   exports: [

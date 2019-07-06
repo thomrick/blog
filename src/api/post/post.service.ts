@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { CreatePost } from '../../command';
 import { PostAggregate } from '../../domain';
 import { CommandBus } from '../../infra/bus';
 import { CreatePostDto } from './dto';
@@ -12,6 +13,7 @@ export class PostService {
   }
 
   public create(dto: CreatePostDto): PostAggregate {
-    return PostAggregate.with(dto.author, dto.title, dto.content);
+    this.bus.dispatch(new CreatePost(dto.author, dto.title, dto.content));
+    throw new Error('Method not implemented');
   }
 }
