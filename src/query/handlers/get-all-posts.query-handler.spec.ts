@@ -1,6 +1,6 @@
 import { PostAggregate, PostRepository } from '../../domain';
 import { GetAllPostsQuery } from '../queries';
-import { GetAllPostResult } from '../results';
+import { GetAllPostsResult } from '../results';
 import { GetAllPostsQueryHandler } from './get-all-posts.query-handler';
 import { QueryHandler } from './query-handler';
 
@@ -18,9 +18,9 @@ describe('GetAllPostQueryHandler', () => {
     };
     const handler: QueryHandler = new GetAllPostsQueryHandler(repository);
 
-    const result: GetAllPostResult = handler.handle(new GetAllPostsQuery());
+    const result: GetAllPostsResult = handler.handle(new GetAllPostsQuery());
 
     expect(repository.getAll).toHaveBeenCalled();
-    expect(result).toEqual(new GetAllPostResult(posts));
+    expect(result).toEqual(new GetAllPostsResult(posts));
   });
 });

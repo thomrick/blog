@@ -1,6 +1,6 @@
 import { PostRepository } from '../../domain';
 import { GetAllPostsQuery } from '../queries';
-import { GetAllPostResult } from '../results';
+import { GetAllPostsResult } from '../results';
 import { QueryHandler } from './query-handler';
 
 export class GetAllPostsQueryHandler implements QueryHandler {
@@ -10,8 +10,8 @@ export class GetAllPostsQueryHandler implements QueryHandler {
     this.repository = repository;
   }
 
-  public handle(_query: GetAllPostsQuery): GetAllPostResult {
-    return new GetAllPostResult(this.repository.getAll());
+  public handle(_query: GetAllPostsQuery): GetAllPostsResult {
+    return new GetAllPostsResult(this.repository.getAll());
   }
 
   public subscribeTo(): string {
