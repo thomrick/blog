@@ -1,19 +1,27 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUser } from '../../command';
 import { UserAggregate } from '../../domain';
-import { CommandBus } from '../../infra/bus';
+import { CommandBus, QueryBus } from '../../infra/bus';
+import { GetUserByUsernameQuery, GetUserByUsernameResult } from '../../query';
 import { CreateUserDto } from './dto';
 
 @Injectable()
 export class UserService {
-  private readonly commands: CommandBus;
+  private readonly orderer: CommandBus;
+  private readonly querier: QueryBus;
 
-  constructor(commands: CommandBus) {
-    this.commands = commands;
+  constructor(commander: CommandBus, queryBus: QueryBus) {
+    this.orderer = commander;
+    this.querier = queryBus;
   }
 
   public create(dto: CreateUserDto): UserAggregate {
-    this.commands.dispatch(new CreateUser(dto.username));
-    throw new Error('Method not implemented');
+    this.orderer.dispatch(new CreateUser(dto.username));
+    const result: GetUserByUsernameResult = this.querier.ask(new GetUserByUsernameQuery(dto.username));
+    const user: UserAggregate | null = result.getData();
+    if (user === null) {
+      throw new Error('User has not been created');
+    }
+    return user;
   }
 }

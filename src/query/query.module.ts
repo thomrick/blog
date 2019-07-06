@@ -1,10 +1,10 @@
 import { forwardRef, Module } from '@nestjs/common';
-import { InfraModule } from '../infra';
+import { AdaptersModule } from '../infra/adapters';
 import { QueryHandlers, UserQueryHandlers } from './providers';
 
 @Module({
   imports: [
-    forwardRef(() => InfraModule),
+    forwardRef(() => AdaptersModule),
   ],
   providers: [
     QueryHandlers,
