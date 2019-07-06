@@ -1,6 +1,5 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { UserAggregate } from '../../domain';
-import { CreateUserDto } from './dto';
+import { CreateUserDto, UserDto } from './dto';
 import { UserService } from './user.service';
 
 @Controller('users')
@@ -12,7 +11,7 @@ export class UserController {
   }
 
   @Post()
-  public create(@Body() dto: CreateUserDto): UserAggregate {
+  public create(@Body() dto: CreateUserDto): UserDto {
     return this.service.create(dto);
   }
 }

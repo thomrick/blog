@@ -6,7 +6,7 @@ export class QueryBus {
   private readonly handlers: Map<string, QueryHandler>;
 
   constructor(@Inject(QUERY_HANDLERS_TOKEN) handlers: QueryHandler[]) {
-    this.handlers = handlers.reduce((acc, handler) => acc.set(handler.subscribeTo, handler), new Map());
+    this.handlers = handlers.reduce((acc, handler) => acc.set(handler.subscribeTo(), handler), new Map());
   }
 
   public ask(query: Query): Result {

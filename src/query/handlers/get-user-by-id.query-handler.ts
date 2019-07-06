@@ -16,6 +16,6 @@ export class GetUserByIdQueryHandler implements QueryHandler {
   }
 
   public subscribeTo(): string {
-    throw new Error('Method not implemented.');
+    return GetUserByIdQuery.name;
   }
 }

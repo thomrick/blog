@@ -3,7 +3,7 @@ import { CreateUserCommand } from '../../command';
 import { UserAggregate } from '../../domain';
 import { CommandBus, QueryBus } from '../../infra/bus';
 import { GetUserByUsernameQuery, GetUserByUsernameResult } from '../../query';
-import { CreateUserDto } from './dto';
+import { CreateUserDto, UserDto } from './dto';
 
 @Injectable()
 export class UserService {
@@ -15,13 +15,13 @@ export class UserService {
     this.querier = queryBus;
   }
 
-  public create(dto: CreateUserDto): UserAggregate {
+  public create(dto: CreateUserDto): UserDto {
     this.orderer.dispatch(new CreateUserCommand(dto.username));
     const result: GetUserByUsernameResult = this.querier.ask(new GetUserByUsernameQuery(dto.username));
     const user: UserAggregate | null = result.getData();
     if (user === null) {
       throw new Error('User has not been created');
     }
-    return user;
+    return UserDto.from(user);
   }
 }
