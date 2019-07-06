@@ -13,6 +13,14 @@
   },
   "author": "ThomRick",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThomRick/blog.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ThomRick/blog/issues"
+  },
+  "homepage": "https://github.com/ThomRick/blog#readme",
   "dependencies": {
     "@nestjs/common": "^6.4.0",
     "@nestjs/core": "^6.4.0",
