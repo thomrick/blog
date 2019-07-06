@@ -9,6 +9,7 @@ describe('CreatePostCommandHandler', () => {
     const repository: PostRepository = {
       save: jest.fn(),
       get: jest.fn(),
+      getAll: jest.fn(),
     };
     const handler: CommandHandler = new CreatePostCommandHandler(repository);
 
