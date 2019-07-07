@@ -3,4 +3,5 @@ import { QueryResult } from '../query-results';
 
 export interface QueryHandler {
   handle(query: Query): QueryResult;
+  subscribeTo(): string;
 }
