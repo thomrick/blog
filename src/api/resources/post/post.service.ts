@@ -1,15 +1,25 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { QueryBus } from '../../../infra';
+import { CreatePostCommand, CreatePostCommandResult } from '../../../command';
+import { CommandBus, QueryBus } from '../../../infra';
 import { GetAllPostsQuery, GetAllPostsQueryResult } from '../../../query';
-import { QUERY_BUS_TOKEN } from '../../adapters';
-import { PostDto } from './dto';
+import { COMMAND_BUS_TOKEN, QUERY_BUS_TOKEN } from '../../adapters';
+import { CreatePostDto, PostDto } from './dto';
 
 @Injectable()
 export class PostService {
+  private readonly commandBus: CommandBus;
   private readonly queryBus: QueryBus;
 
-  constructor(@Inject(QUERY_BUS_TOKEN) queryBus: QueryBus) {
+  constructor(@Inject(COMMAND_BUS_TOKEN) commandBus: CommandBus, @Inject(QUERY_BUS_TOKEN) queryBus: QueryBus) {
+    this.commandBus = commandBus;
     this.queryBus = queryBus;
+  }
+
+  public create(dto: CreatePostDto): PostDto {
+    const result: CreatePostCommandResult = this.commandBus.dispatch(
+      new CreatePostCommand(dto.author, dto.title, dto.content),
+    );
+    return PostDto.from(result.getData());
   }
 
   public findAll(): PostDto[] {
