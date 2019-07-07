@@ -10,6 +10,8 @@ import { RepositoriesModule } from './repositories';
     RepositoriesModule,
   ],
   exports: [
+    BusModule,
+    QueryModule,
     RepositoriesModule,
   ],
 })

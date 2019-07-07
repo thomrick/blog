@@ -1,11 +1,9 @@
 import { PostAggregate } from '../../domain';
 import { QueryResult } from './query-result';
 
-export class GetAllPostsQueryResult implements QueryResult {
-  private readonly data: PostAggregate[];
-
-  constructor(data: PostAggregate[] = []) {
-    this.data = data;
+export class GetAllPostsQueryResult extends QueryResult {
+  constructor(posts: PostAggregate[] = []) {
+    super(posts);
   }
 
   public getData(): PostAggregate[] {

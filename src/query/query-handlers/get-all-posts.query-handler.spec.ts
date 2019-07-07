@@ -1,5 +1,5 @@
 import { PostRepository } from '../../domain';
-import { GetAllPostQuery } from '../queries';
+import { GetAllPostsQuery } from '../queries';
 import { GetAllPostsQueryHandler } from './get-all-posts.query-handler';
 import { QueryHandler } from './query-handler';
 
@@ -14,7 +14,7 @@ describe('GetAllPostsQueryHandler', () => {
       };
       const handler: QueryHandler = new GetAllPostsQueryHandler(repository);
       // WHEN
-      handler.handle(new GetAllPostQuery());
+      handler.handle(new GetAllPostsQuery());
       // THEN
       expect(repository.getAll).toHaveBeenCalled();
     });
@@ -32,7 +32,7 @@ describe('GetAllPostsQueryHandler', () => {
       // WHEN
       const queryName: string = handler.subscribeTo();
       // THEN
-      expect(queryName).toEqual(GetAllPostQuery.name);
+      expect(queryName).toEqual(GetAllPostsQuery.name);
     });
   });
 });
