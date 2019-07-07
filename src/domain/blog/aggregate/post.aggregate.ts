@@ -1,5 +1,6 @@
 import uuid from 'uuid/v1';
-import { PostCreated, PostEvent } from '../event';
+import { CommentAdded, PostCreated, PostEvent } from '../event';
+import { Comment } from '../model';
 
 export class PostAggregate {
 
@@ -7,6 +8,7 @@ export class PostAggregate {
   private author!: string;
   private title!: string;
   private content!: string;
+  private comments!: Comment[];
 
   private changes: PostEvent[] = [];
 
@@ -26,16 +28,43 @@ export class PostAggregate {
     }
   }
 
-  public apply(event: PostCreated): PostAggregate {
-    this.id = event.id;
+  public add(comment: Comment): void {
+    const event = new CommentAdded(this.id, comment);
+    this.apply(event);
+    this.save(event);
+  }
+
+  public apply(event: PostEvent): PostAggregate {
+    switch (event.eventName) {
+      case PostCreated.name:
+        return this.applyCreatePost(event as PostCreated);
+      case CommentAdded.name:
+        return this.applyAddComment(event as CommentAdded);
+      default:
+        return this;
+    }
+  }
+
+  public applyCreatePost(event: PostCreated): PostAggregate {
+    this.id = event.postId;
     this.author = event.author;
     this.title = event.title;
     this.content = event.content;
+    this.comments = [];
+    return this;
+  }
+
+  public applyAddComment(event: CommentAdded): PostAggregate {
+    this.comments.push(event.comment);
     return this;
   }
 
   public getId(): string {
     return this.id;
+  }
+
+  public getAuthor(): string {
+    return this.author;
   }
 
   public getTitle(): string {
@@ -46,8 +75,8 @@ export class PostAggregate {
     return this.content;
   }
 
-  public getAuthor(): string {
-    return this.author;
+  public getComments(): Comment[] {
+    return this.comments;
   }
 
   private save(event: PostEvent): void {

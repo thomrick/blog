@@ -4,13 +4,13 @@ import { PostEvent } from './post.event';
 export class PostCreated implements PostEvent {
   public readonly eventName: string = PostCreated.name;
 
-  public readonly id: string;
+  public readonly postId: string;
   public readonly author: string;
   public readonly title: string;
   public readonly content: string;
 
-  constructor(id: string, author: string, title: string, content: string) {
-    this.id = id;
+  constructor(postId: string, author: string, title: string, content: string) {
+    this.postId = postId;
     this.author = author;
     this.title = title;
     this.content = content;
