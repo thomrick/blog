@@ -1,4 +1,4 @@
-import { PostAggregate } from '../aggregate';
+import { PostProjection } from '../projection';
 import { PostEvent } from './post.event';
 
 export class PostCreated implements PostEvent {
@@ -16,7 +16,7 @@ export class PostCreated implements PostEvent {
     this.content = content;
   }
 
-  public apply(post: PostAggregate): PostAggregate {
-    return post.apply(this);
+  public apply(post: PostProjection): PostProjection {
+    return post.state().apply(this);
   }
 }

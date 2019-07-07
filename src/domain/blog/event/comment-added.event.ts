@@ -1,5 +1,5 @@
-import { PostAggregate } from '../aggregate';
 import { Comment } from '../model';
+import { PostProjection } from '../projection';
 import { PostEvent } from './post.event';
 
 export class CommentAdded implements PostEvent {
@@ -13,7 +13,7 @@ export class CommentAdded implements PostEvent {
     this.comment = comment;
   }
 
-  public apply(post: PostAggregate): PostAggregate {
-    throw new Error('Method not implemented.');
+  public apply(post: PostProjection): PostProjection {
+    return post.state().apply(this);
   }
 }

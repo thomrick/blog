@@ -1,6 +1,7 @@
 import { PostAggregate } from '../aggregate';
+import { PostProjection } from '../projection';
 
 export interface PostEvent {
   readonly eventName: string;
-  apply(post: PostAggregate): PostAggregate;
+  apply(post: PostProjection): PostProjection;
 }
