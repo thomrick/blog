@@ -1,9 +1,7 @@
+// tslint:disable:max-classes-per-file
 import { CommentAdded, PostCreated, PostEvent } from '../event';
 import { Comment } from '../model';
-
-export interface StateApplier {
-  apply(event: PostEvent): PostProjection;
-}
+import { StateApplier } from '../state-applier';
 
 export class PostProjection {
   private postId!: string;
@@ -33,33 +31,37 @@ export class PostProjection {
   }
 
   public state(): StateApplier {
-    return ((projection: PostProjection) => {
-      const applyCreatePost = (event: PostCreated): PostProjection => {
-        projection.postId = event.postId;
-        projection.author = event.author;
-        projection.title = event.title;
-        projection.content = event.content;
-        projection.comments = [];
-        return projection;
-      };
+    return new class PostStateApplier implements StateApplier {
+      private projection: PostProjection;
 
-      const applyCommentAdded = (event: CommentAdded): PostProjection => {
-        projection.comments.push(event.comment);
-        return projection;
-      };
+      constructor(projection: PostProjection) {
+        this.projection = projection;
+      }
 
-      return {
-        apply(event: PostEvent): PostProjection {
-          switch (event.eventName) {
-            case PostCreated.name:
-              return applyCreatePost(event as PostCreated);
-            case CommentAdded.name:
-              return applyCommentAdded(event as CommentAdded);
-            default:
-              return projection;
-          }
-        },
-      };
-    })(this);
+      public apply(event: PostEvent): PostProjection {
+        switch (event.eventName) {
+          case PostCreated.name:
+            return this.applyPostCreated(event as PostCreated);
+          case CommentAdded.name:
+            return this.applyCommentAdded(event as CommentAdded);
+          default:
+            return this.projection;
+        }
+      }
+
+      private applyPostCreated(event: PostCreated): PostProjection {
+        this.projection.postId = event.postId;
+        this.projection.author = event.author;
+        this.projection.title = event.title;
+        this.projection.content = event.content;
+        this.projection.comments = [];
+        return this.projection;
+      }
+
+      private applyCommentAdded(event: CommentAdded): PostProjection {
+        this.projection.comments.push(event.comment);
+        return this.projection;
+      }
+    }(this);
   }
 }
