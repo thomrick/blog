@@ -23,7 +23,7 @@ describe('CreatePostCommandHandler', () => {
   });
 
   describe('subscribeTo', () => {
-    it('should return the command name', () => {
+    it('should return the handled command name', () => {
       const handler: CommandHandler = new CreatePostCommandHandler(repository);
 
       expect(handler.subscribeTo()).toEqual(CreatePost.name);
