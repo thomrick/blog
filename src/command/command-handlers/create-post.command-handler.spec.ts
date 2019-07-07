@@ -1,6 +1,6 @@
 import { PostAggregate, PostRepository } from '../../domain';
 import { CommandResult } from '../command-results';
-import { CreatePost } from '../commands';
+import { CreatePostCommand } from '../commands';
 import { CommandHandler } from './command-handler';
 import { CreatePostCommandHandler } from './create-post.command-handler';
 
@@ -15,7 +15,7 @@ describe('CreatePostCommandHandler', () => {
     it('should save created post', () => {
       const handler: CommandHandler = new CreatePostCommandHandler(repository);
 
-      const result: CommandResult = handler.handle(new CreatePost('author', 'title', 'content'));
+      const result: CommandResult = handler.handle(new CreatePostCommand('author', 'title', 'content'));
 
       expect(repository.save).toHaveBeenCalled();
       expect(result.getData() instanceof PostAggregate).toBeTruthy();
@@ -26,7 +26,7 @@ describe('CreatePostCommandHandler', () => {
     it('should return the handled command name', () => {
       const handler: CommandHandler = new CreatePostCommandHandler(repository);
 
-      expect(handler.subscribeTo()).toEqual(CreatePost.name);
+      expect(handler.subscribeTo()).toEqual(CreatePostCommand.name);
     });
   });
 });

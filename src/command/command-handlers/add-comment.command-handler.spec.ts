@@ -1,7 +1,7 @@
 import { PostAggregate, PostRepository } from '../../domain';
 import { Comment } from '../../domain/model';
 import { AddCommentCommandResult, CommandResult } from '../command-results';
-import { AddComment } from '../commands';
+import { AddCommentCommand } from '../commands';
 import { AddCommentCommandHandler } from './add-comment.command-handler';
 import { CommandHandler } from './command-handler';
 
@@ -32,7 +32,7 @@ describe('AddCommentCommandHandler', () => {
     it('should get the post aggregate from repository', () => {
       // GIVEN
       // WHEN
-      handler.handle(new AddComment(post.getProjection().getId(), comment.getAuthor(), comment.getText()));
+      handler.handle(new AddCommentCommand(post.getProjection().getId(), comment.getAuthor(), comment.getText()));
       // THEN
       expect(getSpy).toHaveBeenCalledWith(post.getProjection().getId());
     });
@@ -40,7 +40,7 @@ describe('AddCommentCommandHandler', () => {
     it('should save the post aggregate in repository after applying add comment', () => {
       // GIVEN
       // WHEN
-      handler.handle(new AddComment(post.getProjection().getId(), comment.getAuthor(), comment.getText()));
+      handler.handle(new AddCommentCommand(post.getProjection().getId(), comment.getAuthor(), comment.getText()));
       // THEN
       expect(repository.save).toHaveBeenCalledWith(post);
     });
@@ -49,7 +49,7 @@ describe('AddCommentCommandHandler', () => {
       // GIVEN
       // WHEN
       const result: CommandResult = handler.handle(
-        new AddComment(post.getProjection().getId(), comment.getAuthor(), comment.getText()),
+        new AddCommentCommand(post.getProjection().getId(), comment.getAuthor(), comment.getText()),
       );
       // THEN
       expect(result).toEqual(new AddCommentCommandResult(post));
@@ -58,7 +58,7 @@ describe('AddCommentCommandHandler', () => {
 
   describe('subscribeTo', () => {
     it('should return the handled command name', () => {
-      expect(handler.subscribeTo()).toEqual(AddComment.name);
+      expect(handler.subscribeTo()).toEqual(AddCommentCommand.name);
     });
   });
 });

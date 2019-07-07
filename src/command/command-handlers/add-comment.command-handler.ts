@@ -1,6 +1,6 @@
 import { Comment, PostAggregate, PostRepository } from '../../domain';
 import { AddCommentCommandResult } from '../command-results';
-import { AddComment } from '../commands';
+import { AddCommentCommand } from '../commands';
 import { CommandHandler } from './command-handler';
 
 export class AddCommentCommandHandler implements CommandHandler {
@@ -10,7 +10,7 @@ export class AddCommentCommandHandler implements CommandHandler {
     this.repository = repository;
   }
 
-  public handle(command: AddComment): AddCommentCommandResult {
+  public handle(command: AddCommentCommand): AddCommentCommandResult {
     const aggregate: PostAggregate = this.repository.get(command.postId) as PostAggregate;
     aggregate.add(new Comment(command.author, command.text));
     this.repository.save(aggregate);
@@ -18,6 +18,6 @@ export class AddCommentCommandHandler implements CommandHandler {
   }
 
   public subscribeTo(): string {
-    return AddComment.name;
+    return AddCommentCommand.name;
   }
 }
