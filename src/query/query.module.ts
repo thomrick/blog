@@ -1,17 +1,4 @@
-import { forwardRef, Module } from '@nestjs/common';
-import { AdaptersModule } from '../infra/adapters';
-import { QueryHandlers, UserQueryHandlers } from './providers';
+import { Module } from '@nestjs/common';
 
-@Module({
-  imports: [
-    forwardRef(() => AdaptersModule),
-  ],
-  providers: [
-    QueryHandlers,
-    UserQueryHandlers,
-  ],
-  exports: [
-    QueryHandlers,
-  ],
-})
+@Module({})
 export class QueryModule {}

@@ -1,19 +1,4 @@
-import { forwardRef, Module } from '@nestjs/common';
-import { RepositoriesModule } from '../infra/adapters/repositories';
-import { CommandHandlers, CommentCommandHandlers, PostCommandHandlers, UserCommandHandlersProvider } from './providers';
+import { Module } from '@nestjs/common';
 
-@Module({
-  imports: [
-    forwardRef(() => RepositoriesModule),
-  ],
-  providers: [
-    CommandHandlers,
-    CommentCommandHandlers,
-    PostCommandHandlers,
-    UserCommandHandlersProvider,
-  ],
-  exports: [
-    CommandHandlers,
-  ],
-})
+@Module({})
 export class CommandModule {}
