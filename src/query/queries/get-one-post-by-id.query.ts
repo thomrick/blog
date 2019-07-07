@@ -1,7 +1,7 @@
 import { Query } from './query';
 
-export class GetOnePostById implements Query {
-  public readonly queryName: string = GetOnePostById.name;
+export class GetOnePostByIdQuery implements Query {
+  public readonly queryName: string = GetOnePostByIdQuery.name;
 
   public readonly postId: string;
 
