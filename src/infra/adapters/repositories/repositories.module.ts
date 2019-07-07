@@ -1,7 +1,5 @@
 import { Module } from '@nestjs/common';
-import { CommentRepositoryProvider } from './comment-repository.provider';
-import { PostRepositoryProvider } from './post-repository.provider';
-import { UserRepositoryProvider } from './user-repository.provider';
+import { CommentRepositoryProvider, PostRepositoryProvider, UserRepositoryProvider } from './providers';
 
 @Module({
   providers: [

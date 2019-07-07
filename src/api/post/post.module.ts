@@ -1,11 +1,11 @@
 import { forwardRef, Module } from '@nestjs/common';
-import { BusModule } from '../../infra/bus';
+import { InfraModule } from '../../infra';
 import { PostController } from './post.controller';
 import { PostService } from './post.service';
 
 @Module({
   imports: [
-    forwardRef(() => BusModule),
+    forwardRef(() => InfraModule),
   ],
   controllers: [
     PostController,

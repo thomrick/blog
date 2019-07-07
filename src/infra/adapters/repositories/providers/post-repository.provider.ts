@@ -1,6 +1,6 @@
 import { Provider } from '@nestjs/common';
-import { PostRepository } from '../../../domain';
-import { InMemoryPostRepository } from './in-memory';
+import { PostRepository } from '../../../../domain';
+import { InMemoryPostRepository } from '../in-memory';
 
 export const POST_REPOSITORY_TOKEN: string = 'PostRepository';
 

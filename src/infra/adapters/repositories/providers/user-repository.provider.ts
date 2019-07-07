@@ -1,6 +1,6 @@
 import { Provider } from '@nestjs/common';
-import { UserRepository } from '../../../domain';
-import { InMemoryUserRepository } from './in-memory';
+import { UserRepository } from '../../../../domain';
+import { InMemoryUserRepository } from '../in-memory';
 
 export const USER_REPOSITORY_TOKEN: string = 'UserRepository';
 

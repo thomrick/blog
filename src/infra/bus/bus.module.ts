@@ -1,8 +1,7 @@
 import { forwardRef, Module } from '@nestjs/common';
 import { CommandModule } from '../../command';
 import { QueryModule } from '../../query';
-import { CommandBusProvider } from './command-bus.provider';
-import { QueryBusProvider } from './query-bus.provider';
+import { CommandBusProvider, QueryBusProvider } from './providers';
 
 @Module({
   imports: [

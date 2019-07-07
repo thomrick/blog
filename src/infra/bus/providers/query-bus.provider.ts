@@ -1,7 +1,7 @@
 import { Provider } from '@nestjs/common';
-import { QUERY_HANDLERS_TOKEN, QueryHandler } from '../../query';
-import { InMemoryQueryBus } from './in-memory';
-import { QueryBus } from './query-bus';
+import { QUERY_HANDLERS_TOKEN, QueryHandler } from '../../../query';
+import { InMemoryQueryBus } from '../in-memory';
+import { QueryBus } from '../query-bus';
 
 export const QUERY_BUS_TOKEN: string = 'QueryBus';
 
