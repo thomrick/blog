@@ -1,6 +1,11 @@
-import { PostAggregate, PostRepository } from '../../domain';
+import { PostAggregate, PostEvent, PostRepository } from '../../domain';
 
 export class InMemoryPostRepository implements PostRepository {
+  private readonly database: Map<string, PostEvent[]>;
+
+  constructor(database: Map<string, PostEvent[]> = new Map()) {
+    this.database = database;
+  }
 
   public save(post: PostAggregate): void {
     throw new Error('Method not implemented.');
@@ -11,6 +16,7 @@ export class InMemoryPostRepository implements PostRepository {
   }
 
   public getAll(): PostAggregate[] {
-    throw new Error('Method not implemented.');
+    const aggregates: PostAggregate[] = [];
+    return aggregates;
   }
 }
