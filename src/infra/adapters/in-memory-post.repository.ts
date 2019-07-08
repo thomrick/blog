@@ -8,15 +8,22 @@ export class InMemoryPostRepository implements PostRepository {
   }
 
   public save(post: PostAggregate): void {
-    throw new Error('Method not implemented.');
+    this.database.set(post.getProjection().getId(), post.getUncommittedChanges());
   }
 
-  public get(id: string): PostAggregate {
-    throw new Error('Method not implemented.');
+  public get(id: string): PostAggregate | null {
+    const events: PostEvent[] | undefined = this.database.get(id);
+    return !!events ? new PostAggregate(events) : null;
   }
 
   public getAll(): PostAggregate[] {
     const aggregates: PostAggregate[] = [];
+    const iterator: Iterator<PostEvent[]> = this.database.values();
+    let next: IteratorResult<PostEvent[]> = iterator.next();
+    while (!next.done) {
+      aggregates.push(new PostAggregate(next.value));
+      next = iterator.next();
+    }
     return aggregates;
   }
 }
