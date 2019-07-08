@@ -1,9 +1,14 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { CreatePostCommand, CreatePostCommandResult } from '../../../command';
+import {
+  AddCommentCommand,
+  AddCommentCommandResult,
+  CreatePostCommand,
+  CreatePostCommandResult,
+} from '../../../command';
 import { CommandBus, QueryBus } from '../../../infra';
 import { GetAllPostsQuery, GetAllPostsQueryResult } from '../../../query';
 import { COMMAND_BUS_TOKEN, QUERY_BUS_TOKEN } from '../../adapters';
-import { CreatePostDto, PostDto } from './dto';
+import { AddCommentDto, CreatePostDto, PostDto } from './dto';
 
 @Injectable()
 export class PostService {
@@ -25,5 +30,12 @@ export class PostService {
   public findAll(): PostDto[] {
     const result: GetAllPostsQueryResult = this.queryBus.ask(new GetAllPostsQuery());
     return result.getData().map((aggregate) => PostDto.from(aggregate));
+  }
+
+  public addCommentTo(postId: string, dto: AddCommentDto): PostDto {
+    const result: AddCommentCommandResult = this.commandBus.dispatch(
+      new AddCommentCommand(postId, dto.author, dto.text),
+    );
+    return PostDto.from(result.getData());
   }
 }

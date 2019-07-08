@@ -1,11 +1,16 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { CreatePostCommand, CreatePostCommandResult } from '../../../command';
+import {
+  AddCommentCommand,
+  AddCommentCommandResult,
+  CreatePostCommand,
+  CreatePostCommandResult,
+} from '../../../command';
 import { PostAggregate } from '../../../domain';
 import { CommandBus, QueryBus } from '../../../infra';
 import { GetAllPostsQuery, GetAllPostsQueryResult } from '../../../query';
 import { QUERY_BUS_TOKEN } from '../../adapters';
 import { COMMAND_BUS_TOKEN } from '../../adapters/bus/command-bus.provider';
-import { CreatePostDto, PostDto } from './dto';
+import { AddCommentDto, CreatePostDto, PostDto } from './dto';
 import { PostService } from './post.service';
 
 describe('PostService', () => {
@@ -93,6 +98,37 @@ describe('PostService', () => {
       const dto: PostDto[] = service.findAll();
       // THEN
       expect(dto).toEqual(aggregates.map((aggregate) => PostDto.from(aggregate)));
+    });
+  });
+
+  describe('addCommentTo', () => {
+    let aggregate: PostAggregate;
+    let bus: CommandBus;
+
+    beforeEach(() => {
+      aggregate = PostAggregate.with('author', 'title', 'content');
+      bus = module.get(COMMAND_BUS_TOKEN);
+      spyOn(bus, 'dispatch').and.returnValue(new AddCommentCommandResult(aggregate));
+    });
+
+    it('should dispatch a add comment command', () => {
+      // GIVEN
+      const dto: AddCommentDto = new AddCommentDto('author', 'text');
+      // WHEN
+      service.addCommentTo(aggregate.getProjection().getId(), dto);
+      // THEN
+      expect(bus.dispatch).toHaveBeenCalledWith(
+        new AddCommentCommand(aggregate.getProjection().getId(), dto.author, dto.text),
+      );
+    });
+
+    it('should return the updated post with comment', () => {
+      // GIVEN
+      const dto: AddCommentDto = new AddCommentDto('author', 'text');
+      // WHEN
+      const response: PostDto = service.addCommentTo(aggregate.getProjection().getId(), dto);
+      // THEN
+      expect(response).toEqual(PostDto.from(aggregate));
     });
   });
 });
